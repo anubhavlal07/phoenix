@@ -831,23 +831,23 @@ class TestSpanCostPerToken:
                     span_start_time=start_time,
                     total_cost=cost,
                     total_tokens=tokens,
-                    prompt_cost=cost,
-                    prompt_tokens=tokens,
-                    completion_cost=cost,
-                    completion_tokens=tokens,
+                    input_cost=cost,
+                    input_tokens=tokens,
+                    output_cost=cost,
+                    output_tokens=tokens,
                 )
                 session.add(span_cost)
                 await session.flush()
 
                 python_values = (
                     span_cost.total_cost_per_token,
-                    span_cost.prompt_cost_per_token,
-                    span_cost.completion_cost_per_token,
+                    span_cost.input_cost_per_token,
+                    span_cost.output_cost_per_token,
                 )
                 stmt = select(
                     models.SpanCost.total_cost_per_token,
-                    models.SpanCost.prompt_cost_per_token,
-                    models.SpanCost.completion_cost_per_token,
+                    models.SpanCost.input_cost_per_token,
+                    models.SpanCost.output_cost_per_token,
                 ).where(models.SpanCost.id == span_cost.id)
                 sql_values = tuple((await session.execute(stmt)).one())
                 assert python_values == pytest.approx((expected,) * 3), f"Case {i} (Python)"
