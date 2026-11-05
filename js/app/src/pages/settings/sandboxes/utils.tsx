@@ -26,7 +26,7 @@ type Language = SandboxProvider["supportedLanguages"][number];
 
 const STATUS_CATEGORIES: Record<BackendInfo["status"], StatusCategory> = {
   AVAILABLE: "succeeded",
-  MISSING_CREDENTIALS: "needs-input",
+  MISSING_CREDENTIALS: "needs-credentials",
   UNAVAILABLE: "failed",
   NOT_INSTALLED: "off",
   DISABLED: "off",
